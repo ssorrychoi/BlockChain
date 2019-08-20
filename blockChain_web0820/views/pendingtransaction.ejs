@@ -1,0 +1,41 @@
+
+    <% layout('layout/layout')%>
+    <div class="container">
+      <h1>Pending Transaction</h1>
+    </div>
+    <div class="container">
+        <%
+            if(txs && txs.length>0){
+        %>
+        <table class="table table-hover table-striped">
+            <thead>
+                <th>#</th>
+                <th class="text-truncate" style="max-width:150px">From</th>
+                <th class="text-truncate" style="max-width:150px">To</th>
+                <th>Amount</th>
+                <th>Valid?</th>
+            </thead>
+            <tbody>
+                <% 
+                    txs.forEach(function(el,idx){
+                %>
+                <tr>
+                    <td>0</td>
+                    <td class="text-truncate" style="max-width:150px"><%=el.fromAddress%></td>
+                    <td class="text-truncate" style="max-width:150px"><%=el.toAddress%></td>
+                    <td><%=el.amount%></td>
+                    <td></td>
+                </tr>
+                <%
+                    });
+                %>
+                
+            </tbody>
+            
+        </table>
+        <%
+            }
+        %>
+        <a href="/blockchain/miningblock" class="btn btn-primary">Mining</a>
+    </div>
+
