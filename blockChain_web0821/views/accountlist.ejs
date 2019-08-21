@@ -1,0 +1,30 @@
+<% layout('layout/layout')%>
+<div class="container">
+  <h1>Account List</h1>
+    
+  <% if(accounts != undefined) { %>
+    
+     <table class="table table-hover table-striped">
+        <thead>
+           <tr>
+              <th>#</th>
+              <th>Address</th>
+              <th>Balance</th>
+              <th>Function</th>
+           </tr>
+        </thead>
+        <tbody>
+           <% accounts.forEach( function (el, idx) { %>
+           <tr> 
+              <td><%=idx%></td>
+              <td class="text-truncate" style="max-width: 150px;"><%=el.WalletAddress%></td>
+              <td class="text-truncate" style="max-width: 150px;"><%=el.balance%></td>
+              <td><a href="/blockchain/wallet/<%=el.WalletAddress%>" class="btn btn-dark">상세 보기</a></td>
+           </tr>
+           <% }) %>
+        </tbody>
+     </table>
+   <% } %>
+   <a href="/blockchain/createaccount" class="btn btn-primary">계정 생성</a>
+ 
+</div>

@@ -1,0 +1,19 @@
+
+    <% layout('layout/layout')%>
+    <div class="container">
+      <h1>Settings</h1>
+
+      <form action="/blockchain/setting" method="post">
+        <div class="form-group">
+            <label for="fromAddress">블록체인 난이도 설정 (Difficulty)</label>
+            <input type="text" class="form-control" id="difficulty" name="difficulty" value="">
+        </div>
+        <div class="form-group">
+            <label for="fromAddress">블록체인 보상 설정 (Reward)</label>
+            <input type="text" class="form-control" id="reward" name="reward" value="">
+        </div>
+        <button type="submit" class="btn btn-primary">적용</button>
+      </form>
+
+    </div>
+
