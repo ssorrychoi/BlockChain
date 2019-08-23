@@ -1,0 +1,102 @@
+
+    <% layout('layout/layout')%>
+    <div class="container">
+      <h1>BlockChain</h1>
+    </div>
+
+    <div class="container" style="overflow-x : scroll; white-space: nowrap">
+        
+        <%
+            blocks.forEach(function(el,idx) {
+        %>
+        <%
+            let str_border = (selectedIdx != null && selectedIdx == el.index) ? 'border-primary' : ''
+        %>
+        <div class="card <%=str_border%>" onclick="showBlock( <%= idx %> )">
+            <div class="card-header">
+                <h4>Block <%= el.index%></h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <span>Hash</span>
+                        <div class="text-truncate"><%= el.curHash%></div>
+                    </li>
+                    <li class="list-group-item">
+                        <span>PrevHash</span>
+                        <div class="text-truncate"><%= el.prevHash%></div>
+                    </li>
+                    <li class="list-group-item">
+                        <span>Nonce</span>
+                        <div><%= el.nonce%></div>
+                    </li>
+                    <li class="list-group-item">
+                        <span>Timestamp</span>
+                        <div><%= el.timestamp%></div>
+                    </li>
+                    <li class="list-group-item">
+                        <span>Transactions</span>
+                        <div>toAddress : <%= el.transactions.toAddress%></div>
+                        <div>fromAddress : <%= el.transactions.fromAddress%></div>
+                        <div>amount : <%= el.transactions.amount%></div>
+                        
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <%
+            })
+        %>
+
+    </div>
+    <hr/>
+    <div class="container">
+        <%
+            if(selectedIdx > 0){
+        %>
+        <h1>Transaction List</h1> (Block <%=selectedIdx %>)</h1>
+        <table class="table table-hover table-striped">
+            <thead>
+                <th>#</th>
+                <th class="text-truncate" style="max-width:150px">From</th>
+                <th class="text-truncate" style="max-width:150px">To</th>
+                <th>Amount</th>
+                <th>Valid?</th>
+            </thead>
+            <tbody>
+                <% 
+                    txs.forEach(function(el,idx){
+                %>
+                <tr>
+                    <td>0</td>
+                    <td class="text-truncate" style="max-width:150px"><a href="../wallet/<%=el.fromAddress%>"><%=el.fromAddress%></a></td>
+                    <td class="text-truncate" style="max-width:150px"><a href="../wallet/<%=el.toAddress%>"><%=el.toAddress%></a></td>
+                    <td><%=el.amount%></td>
+                    <td></td>
+                </tr>
+                <%
+                    });
+                %>
+                
+            </tbody>
+        </table>
+        
+        <%
+            }
+        %>
+       
+    </div>
+
+
+
+
+    <script>
+        function showBlock(index){
+            console.log('idx : ',index);
+            location.href = '/eth/block/'+index;
+        }
+        function showWallet(address){
+            console.log('address : ',address);
+            location.href='/eth/wallet/'+address;
+        }
+    </script>
