@@ -1,0 +1,20 @@
+=============== Aug 22, 2019 (KST) ===============
+13:54:58.627898 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+13:54:58.634121 db@open opening
+13:54:58.637213 version@stat F·[] S·0B[] Sc·[]
+13:54:58.637791 db@janitor F·2 G·0
+13:54:58.637852 db@open done T·3.685426ms
+15:58:00.763846 db@close closing
+15:58:00.764391 db@close done T·542.125µs
+=============== Aug 26, 2019 (KST) ===============
+13:43:26.823003 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+13:43:26.830697 version@stat F·[] S·0B[] Sc·[]
+13:43:26.830766 db@open opening
+13:43:26.830911 journal@recovery F·1
+13:43:26.833528 journal@recovery recovering @1
+13:43:26.855254 memdb@flush created L0@2 N·10952 S·103KiB "n:\x11..ail,v42":"version,v1"
+13:43:26.857081 version@stat F·[1] S·103KiB[103KiB] Sc·[0.25]
+13:43:26.858324 db@janitor F·3 G·0
+13:43:26.858357 db@open done T·27.569566ms
+14:05:35.845104 db@close closing
+14:05:35.845735 db@close done T·629.415µs
