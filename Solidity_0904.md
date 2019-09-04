@@ -1,11 +1,3 @@
----
-layout: post
-title: Solidity_3
-subtitle: Bank,SimpleToken,Vote,Lottery,CrowdFunding
-tags: [solidity,Smart contract]
-comments: true
----
-
 20190904
 
 ## Review
