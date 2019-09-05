@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <!-- web3 cdn -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.34/dist/web3.min.js"></script>
+
+    <!-- HTML에서 블록체인에 접근하기 Test -->
+    <script>
+        var web3 = new Web3('http://localhost:8545');
+
+        const abi = [
+            {
+                "constant": false,
+                "inputs": [
+                    {
+                        "name": "_value",
+                        "type": "string"
+                    }
+                ],
+                "name": "setValue",
+                "outputs": [],
+                "payable": false,
+                "stateMutability": "nonpayable",
+                "type": "function"
+            },
+            {
+                "inputs": [
+                    {
+                        "name": "_value",
+                        "type": "string"
+                    }
+                ],
+                "payable": false,
+                "stateMutability": "nonpayable",
+                "type": "constructor"
+            },
+            {
+                "constant": true,
+                "inputs": [],
+                "name": "getValue",
+                "outputs": [
+                    {
+                        "name": "",
+                        "type": "string"
+                    }
+                ],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            }
+        ]  ;
+
+        const contractAddress = "0xa08c816992a9518423eb062afc5c348b1335e2c3";
+
+        // var voteContract = new web3.eth.Contract(abi, contractAddress);
+
+        // voteContract.methods.getNumOfCandidate().call().then(console.log);
+
+        var helloContract = new web3.eth.Contract(abi, contractAddress);
+
+
+        // console.log(helloContract.options.address);
+        // console.log(helloContract.options.jsonInterface);
+
+        helloContract.methods.getValue().call()
+            .then(result => {
+                console.log(result);
+            }
+        )
+        async function hello(){
+            let result = await helloContract.methods.getValue().call();     // get()함수를 호출할땐 call()함수를 호출한다.
+            console.log(result);
+        }
+        hello();
+    </script>
+
+</head>
+<body>
+    
+</body>
+</html>
