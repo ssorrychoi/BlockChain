@@ -1,6 +1,6 @@
 {
     "contracts": {
-        "/Users/ssorrychoi/Desktop/Practice/Solidity/Helloworld.sol": {
+        "/Users/Desktop/Practice/Solidity/Helloworld.sol": {
             "HelloWorld": {
                 "abi": [
                     {
@@ -91,7 +91,7 @@
                         "setGreeting(string)": "a4136862"
                     }
                 },
-                "metadata": "{\"compiler\":{\"version\":\"0.5.10+commit.5a6ea5b1\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[],\"name\":\"say\",\"outputs\":[{\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_greeting\",\"type\":\"string\"}],\"name\":\"setGreeting\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"greeting\",\"outputs\":[{\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"name\":\"_greeting\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/ssorrychoi/Desktop/Practice/Solidity/Helloworld.sol\":\"HelloWorld\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/ssorrychoi/Desktop/Practice/Solidity/Helloworld.sol\":{\"keccak256\":\"0xbb1ae5556d6052351fa9a04b69aeb5da165605be9020e6fe73f0c8bb34d3fc96\",\"urls\":[\"bzzr://5e58ae33a174d7fed97c305097f2c524408fce94c34e28be94ef798254f5150e\",\"dweb:/ipfs/QmfFs2drRqFp4tPMqKserLfVDYasX5Rb4fLEhL8J3qFMLL\"]}},\"version\":1}",
+                "metadata": "{\"compiler\":{\"version\":\"0.5.10+commit.5a6ea5b1\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[],\"name\":\"say\",\"outputs\":[{\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_greeting\",\"type\":\"string\"}],\"name\":\"setGreeting\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"greeting\",\"outputs\":[{\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"name\":\"_greeting\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/ /Desktop/Practice/Solidity/Helloworld.sol\":\"HelloWorld\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/Desktop/Practice/Solidity/Helloworld.sol\":{\"keccak256\":\"0xbb1ae5556d6052351fa9a04b69aeb5da165605be9020e6fe73f0c8bb34d3fc96\",\"urls\":[\"bzzr://5e58ae33a174d7fed97c305097f2c524408fce94c34e28be94ef798254f5150e\",\"dweb:/ipfs/QmfFs2drRqFp4tPMqKserLfVDYasX5Rb4fLEhL8J3qFMLL\"]}},\"version\":1}",
                 "userdoc": {
                     "methods": {}
                 }
@@ -99,9 +99,9 @@
         }
     },
     "sources": {
-        "/Users/ssorrychoi/Desktop/Practice/Solidity/Helloworld.sol": {
+        "/Users/Desktop/Practice/Solidity/Helloworld.sol": {
             "ast": {
-                "absolutePath": "/Users/ssorrychoi/Desktop/Practice/Solidity/Helloworld.sol",
+                "absolutePath": "/Users/Desktop/Practice/Solidity/Helloworld.sol",
                 "exportedSymbols": {
                     "HelloWorld": [
                         32
