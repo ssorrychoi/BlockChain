@@ -1,14 +1,3 @@
----
-layout: post
-title: Hyperledger Fabric_2
-subtitle: Hyperledger Fabric Architecture
-categories: [Hyperledger Fabric]
-tags: [Hyperledger Fabric,Smart contract]
-comments: true
----
-
-20190916
-
 ## Hyperledger Fabric Architecture
 
 ![image](https://user-images.githubusercontent.com/43080040/64929788-6dfb6800-d865-11e9-8f0c-858d35b7b46d.png)
@@ -131,7 +120,7 @@ comments: true
 
   ✔ Fabric-Certificate Authority (Fabric-CA)
 
-   -  ​	일반적으로 인증 기관은 허가 된 블록 체인에 대한 등록 인증서를 관리
+  - ​	일반적으로 인증 기관은 허가 된 블록 체인에 대한 등록 인증서를 관리
 
   ✔ External-Certicicate Authority 
 
@@ -150,7 +139,7 @@ https://skylit.tistory.com/415
 https://download.docker.com/linux/static/stable/x86_64/
 ```
 
-✔️ Docker-compose : v.1.14 이상 > **1.21.2**
+✔️ **Docker-compose : v.1.14 이상 > 1.21.2**
 
 Ubuntu linux terminal에서
 
@@ -164,20 +153,40 @@ Ubuntu linux terminal에서
 
 결과화면 : docker-compose version 1.21.2, build a133471
 
-✔️ Go lang : 1.9.x 이상 > **1.10.3**
+✔️ **Go lang : 1.9.x 이상 > 1.10.3**
+
+`sudo tar -C /usr/local -xzf go1.10.3.linux-amd64.tar.gz `
+
+`export PATH=/usr/local/go/bin/:$PATH`
+
+`echo $PATH`
+
+```
+//결과화면
+/usr/local/go/bin/:/home/parallels/bin:/home/parallels/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+```
+
+`mkdir $HOME/go`
+
+` export GOROOT=/usr/lib/go-1.10/`
 
 ```
 v1.10.3 다운로드
 https://golang.org/doc/install?download=go1.10.3.linux-amd64.tar.gz
+//go v.1.10.3
 ```
 
-✔️ Node.js : 8.9.x 이상 > **8.10.0**
+✔️ **Node.js : 8.9.x 이상 > 8.10.0**
 
+✔️ **Npm : 5.6.x 이상 > 5.6.0**
 
+```
+curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+sudo apt-get install -y nodejs
 
-✔️ Npm : 5.6.x 이상 > **5.6.0**
-
-
+//Node.js v.8.16.1
+//npm v.6.4.1
+```
 
 ## 트랜잭션 흐름
 
