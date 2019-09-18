@@ -1,0 +1,298 @@
+================================================
+# CAFILE PATH
+
+ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+PEER0_ORG1_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
+PEER0_ORG2_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
+
+PEER1_ORG1_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls/ca.crt
+PEER1_ORG2_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer1.org2.example.com/tls/ca.crt
+
+PEER0_ORG3_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls/ca.crt
+
+================================================
+# Environment Variable
+
+# Orderer
+
+ORDERER_GENERAL_LOGLEVEL=INFO
+ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+ORDERER_GENERAL_GENESISMETHOD=file
+ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/orderer.genesis.block
+ORDERER_GENERAL_LOCALMSPID=OrdererMSP
+ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp
+ORDERER_GENERAL_TLS_ENABLED=true
+ORDERER_GENERAL_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+ORDERER_GENERAL_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+ORDERER_GENERAL_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+
+================================================
+# original Peer Environment 
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
+CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/server.key
+CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/server.crt
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
+
+# Peer0.Org1
+
+CORE_PEER_ID=peer0.org1.example.com
+CORE_PEER_ADDRESS=peer0.org1.example.com:7051
+CORE_PEER_GOSSIP_BOOTSTRAP=peer1.org1.example.com:7051
+CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org1.example.com:7051
+CORE_PEER_LOCALMSPID=Org1MSP
+
+================================================
+# Peer1.Org1
+
+CORE_PEER_ID=peer1.org1.example.com
+CORE_PEER_ADDRESS=peer1.org1.example.com:7051
+CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.org1.example.com:7051
+CORE_PEER_GOSSIP_BOOTSTRAP=peer0.org1.example.com:7051
+CORE_PEER_LOCALMSPID=Org1MSP
+
+================================================
+# Peer0.Org2
+
+CORE_PEER_ID=peer0.org2.example.com
+CORE_PEER_ADDRESS=peer0.org2.example.com:7051
+CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org2.example.com:7051
+CORE_PEER_GOSSIP_BOOTSTRAP=peer1.org2.example.com:7051
+CORE_PEER_LOCALMSPID=Org2MSP
+
+================================================
+# Peer1.Org2
+
+CORE_PEER_ID=peer1.org2.example.com
+CORE_PEER_ADDRESS=peer1.org2.example.com:7051
+CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.org2.example.com:7051
+CORE_PEER_GOSSIP_BOOTSTRAP=peer0.org2.example.com:7051
+CORE_PEER_LOCALMSPID=Org2MSP
+
+
+================================================
+================================================
+## CouchDB 사용하기
+
+1. 기존 Fabric Network shutdown
+
+   docker-compose -f docker-compose-cli.yaml down --v --remove-orphans
+   docker rm $(docker ps -aq)
+================================================
+================================================
+2. CouchDB 구성(docker-compose-couch.yaml)으로 Network start
+
+   CHANNEL_NAME=mychannel TIMEOUT=10000 docker-compose -f docker-compose-cli.yaml -f docker-compose-couch.yaml up -d
+
+CHANNEL_NAME=mychannel TIMEOUT=10000 docker-compose -f docker-compose-cli2.yaml -f docker-compose-couch.yaml up -d
+
+================================================
+================================================
+3. Run CLI
+   
+   docker exec -it cli bash
+
+================================================
+================================================
+4. Channel 생성
+
+# Orderer
+
+4.1 Orderer Environment Variables Setting
+
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
+
+ORDERER_GENERAL_LOGLEVEL=INFO
+ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+ORDERER_GENERAL_GENESISMETHOD=file
+ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/orderer.genesis.block
+ORDERER_GENERAL_LOCALMSPID=OrdererMSP
+ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp
+ORDERER_GENERAL_TLS_ENABLED=true
+ORDERER_GENERAL_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+ORDERER_GENERAL_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+ORDERER_GENERAL_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+
+4.2 Channel 생성
+peer channel create -o orderer.example.com:7050 -c mychannel -f ./channel-artifacts/channel.tx --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+
+================================================
+================================================
+5. Peer Join
+
+5.1 Peer0 Org1
+
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
+CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/server.key
+CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/server.crt
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
+
+CORE_PEER_ID=peer0.org1.example.com
+CORE_PEER_ADDRESS=peer0.org1.example.com:7051
+CORE_PEER_GOSSIP_BOOTSTRAP=peer1.org1.example.com:7051
+CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org1.example.com:7051
+CORE_PEER_LOCALMSPID=Org1MSP
+
+peer channel join -b mychannel.block
+
+5.2 Peer1 Org1
+
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls/ca.crt
+CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls/server.key
+CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls/server.crt
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
+
+CORE_PEER_ID=peer1.org1.example.com
+CORE_PEER_ADDRESS=peer1.org1.example.com:7051
+CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.org1.example.com:7051
+CORE_PEER_GOSSIP_BOOTSTRAP=peer0.org1.example.com:7051
+CORE_PEER_LOCALMSPID=Org1MSP
+peer channel join -b mychannel.block
+
+5.3 Peer0 Org2
+
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
+CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/server.key
+CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/server.crt
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
+
+CORE_PEER_ID=peer0.org2.example.com
+CORE_PEER_ADDRESS=peer0.org2.example.com:7051
+CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org2.example.com:7051
+CORE_PEER_GOSSIP_BOOTSTRAP=peer1.org2.example.com:7051
+CORE_PEER_LOCALMSPID=Org2MSP
+
+peer channel join -b mychannel.block
+
+5.4 Peer1 Org2
+
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer1.org2.example.com/tls/ca.crt
+CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer1.org2.example.com/tls/server.key
+CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer1.org2.example.com/tls/server.crt
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
+
+CORE_PEER_ID=peer1.org2.example.com
+CORE_PEER_ADDRESS=peer1.org2.example.com:7051
+CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.org2.example.com:7051
+CORE_PEER_GOSSIP_BOOTSTRAP=peer0.org2.example.com:7051
+CORE_PEER_LOCALMSPID=Org2MSP
+peer channel join -b mychannel.block
+
+
+================================================
+================================================
+6. Org별 Anchor Peer 설정
+
+6.1 Org1
+
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
+CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/server.key
+CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/server.crt
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
+
+CORE_PEER_CRYPTO_BASE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto
+CORE_PEER_MSPCONFIGPATH=$CORE_PEER_CRYPTO_BASE/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
+CORE_PEER_ADDRESS=peer0.org1.example.com:7051
+CORE_PEER_LOCALMSPID="Org1MSP"
+CORE_PEER_TLS_ROOTCERT_FILE=$CORE_PEER_CRYPTO_BASE/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
+
+peer channel create -o orderer.example.com:7050 -c mychannel -f ./channel-artifacts/Org1MSPanchors.tx --tls $CORE_PEER_TLS_ENABLED --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/tlsca/tlsca.example.com-cert.pem
+
+
+6.2 Org2
+
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
+CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/server.key
+CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/server.crt
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
+
+CORE_PEER_CRYPTO_BASE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto
+CORE_PEER_MSPCONFIGPATH=$CORE_PEER_CRYPTO_BASE/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
+CORE_PEER_ADDRESS=peer0.org2.example.com:7051
+CORE_PEER_LOCALMSPID="Org2MSP"
+CORE_PEER_TLS_ROOTCERT_FILE=$CORE_PEER_CRYPTO_BASE/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
+
+peer channel create -o orderer.example.com:7050 -c mychannel -f ./channel-artifacts/Org2MSPanchors.tx --tls $CORE_PEER_TLS_ENABLED --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/tlsca/tlsca.example.com-cert.pem
+
+================================================
+================================================
+7. Peer1.org2 노드에 marbles02 체인코드 디플로이 
+
+peer chaincode install -n marbles02 -v 1.0 -p github.com/hyperledger/fabric/examples/chaincode/go/marbles02/go
+
+================================================
+================================================
+8. chaincode 초기화 (instantiate..)
+
+peer chaincode instantiate -o orderer.example.com:7050 --tls $CORE_PEER_TLS_ENABLED --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/tlsca/tlsca.example.com-cert.pem -C mychannel -n marbles02 -v 1.0 -c '{"Args":["init"]}' -P "OR ('Org1MSP.member','Org2MSP.member')"
+
+
+================================================
+================================================
+9. 데이터 적재 (Peer0.Org1에서)
+
+peer chaincode invoke -o orderer.example.com:7050 --tls $CORE_PEER_TLS_ENABLED --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n marbles02 -c '{"Args":["initMarble","marble1","blue","35","tom"]}' 
+
+peer chaincode invoke -o orderer.example.com:7050 --tls $CORE_PEER_TLS_ENABLED --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n marbles02 -c '{"Args":["initMarble","marble2","red","50","tom"]}' 
+
+peer chaincode invoke -o orderer.example.com:7050 --tls $CORE_PEER_TLS_ENABLED --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n marbles02 -c '{"Args":["initMarble","marble3","blue","70","tom"]}' 
+
+
+peer chaincode invoke -o orderer.example.com:7050 --tls $CORE_PEER_TLS_ENABLED --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n marbles02 -c '{"Args":["initMarble","marble4","yellow","100","tom"]}' 
+
+
+================================================
+================================================
+
+10. 적재 데이터 확인 
+
+peer chaincode query -C mychannel -n marbles02 -c '{"Args":["queryMarbles","{\"selector\":{\"owner\":\"tom\"}}"]}'   
+
+
+================================================
+================================================
+
+11. marble2 소유권 이관 ( tom ==> jerry ) 및 조회
+
+peer chaincode invoke -o orderer.example.com:7050 --tls $CORE_PEER_TLS_ENABLED --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n marbles02 -c '{"Args":["transferMarble","marble2","jerry"]}'
+
+peer chaincode query -C mychannel -n marbles02 -c '{"Args":["readMarble","marble2"]}'
+
+
+================================================
+================================================
+
+12. blue marble  소유권 이관 ( tom ==> jerry ) 및 조회
+
+peer chaincode invoke -o orderer.example.com:7050 --tls $CORE_PEER_TLS_ENABLED --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n marbles02 -c '{"Args":["transferMarblesBasedOnColor","blue","jerry"]}' 
+   
+peer chaincode query -C mychannel -n marbles02 -c '{"Args":["queryMarbles","{\"selector\":{\"color\":\"blue\"}}"]}'
+
+
+================================================
+================================================
+
+13. 전체 marble 확인
+
+peer chaincode query -C mychannel -n marbles02 -c '{"Args":["getMarblesByRange","marble1","marble9"]}'
+
+================================================
+================================================
+14. 데이터 삭제(marble1) 및 조회
+
+
+peer chaincode invoke -o orderer.example.com:7050 --tls $CORE_PEER_TLS_ENABLED --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n marbles02 -c '{"Args":["delete","marble1"]}' 
+
+peer chaincode query -C mychannel -n marbles02 -c '{"Args":["getMarblesByRange","marble1","marble9"]}'
+
+
+15. marble 2 이력 조회
+
+   peer chaincode query -C mychannel -n marbles02 -c '{"Args":["getHistoryForMarble","marble2"]}'
+   peer chaincode query -C mychannel -n marbles02 -c '{"Args":["getHistoryForMarble","marble1"]}'
+
+16. Fabric Network Stop
+
+CHANNEL_NAME=mychannel TIMEOUT=10000 docker-compose -f docker-compose-cli.yaml -f docker-compose-couch.yaml down --v --remove-orphans
+
+
+
